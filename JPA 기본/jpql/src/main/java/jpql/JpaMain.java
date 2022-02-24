@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
 
@@ -16,6 +17,24 @@ public class JpaMain {
 
         try {
 
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member member = new Member();
+            member.setUsername("member");
+            member.setAge(10);
+            member.setType(MemberType.ADMIN);
+            em.persist(member);
+
+            member.setTeam(team);
+
+
+            em.flush();
+            em.clear();
+
+            String query = "select m from Member m left outer join m.team t ";
+            
 
             tx.commit();
        }catch (Exception e){

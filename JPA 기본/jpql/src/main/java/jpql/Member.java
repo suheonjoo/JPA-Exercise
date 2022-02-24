@@ -1,6 +1,9 @@
 package jpql;
 
+import sun.jvm.hotspot.debugger.cdbg.MemberFunctionType;
+
 import javax.persistence.*;
+import java.lang.management.MemoryType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +15,24 @@ public class Member {
     private String username;
     private int age;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    public void  changeTeam(Team team){
+        this.team= team;
+        team.getMembers().add(this);
+    }
+
+    private MemberType type;
+
+    public MemberType getType() {
+        return type;
+    }
+
+    public void setType(MemberType type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;
@@ -39,4 +57,22 @@ public class Member {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+       this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
+    }
+    //여기서 tostring 무한 루프 조심하기
 }
