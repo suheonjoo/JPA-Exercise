@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.ManyToOne;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-/////
+////
 @Repository
 public class MemberRepository {
 
