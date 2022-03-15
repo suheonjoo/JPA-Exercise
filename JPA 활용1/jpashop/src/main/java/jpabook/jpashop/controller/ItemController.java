@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 public class ItemController {
@@ -22,16 +24,23 @@ public class ItemController {
         return "items/createItemForm";
     }
 
-    @PostMapping("/items/new")
-    public String create(BookForm form){
+    @PostMapping(value = "/items/new")
+    public String create(BookForm form) {
         Book book = new Book();
         book.setName(form.getName());
+
         book.setPrice(form.getPrice());
         book.setStockQuantity(form.getStockQuantity());
         book.setAuthor(form.getAuthor());
         book.setIsbn(form.getIsbn());
-
         itemService.saveItem(book);
         return "redirect:/items";
+    }
+
+    @GetMapping("/items")
+    public String list(Model model){
+        List<Item> items = itemService.findItems();
+        model.addAttribute("items",items);
+        return "items/itemList";
     }
 }
