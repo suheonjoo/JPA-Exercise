@@ -1,5 +1,6 @@
 package jpabook.jpashop.repository;
 
+
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class OrderRepository {
 
 
     //이거 추천 안함 실무에서도 사용안함
-    public List<Order> findALlByString(OrderSearch orderSearch) {
+    public List<Order> findAllByString(OrderSearch orderSearch) {
         //language=JPAQL
         String jpql = "select o From Order o join o.member m";
         boolean isFirstCondition = true;
@@ -91,6 +92,16 @@ public class OrderRepository {
         cq.where(cb.and(criteria.toArray(new Predicate[criteria.size()])));
         TypedQuery<Order> query = em.createQuery(cq).setMaxResults(1000); //최대 1000건
         return query.getResultList();
+    }
+
+
+    public List<Order> findAllWithMemberDelivery() {
+        return em.createQuery(
+                "select o from Order o" +
+                " join fetch o.member m" +
+                        " join fetch o.delivery d", Order.class
+        ).getResultList();
+
     }
 
 
