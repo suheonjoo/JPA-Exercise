@@ -21,6 +21,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	//재실행 없이 뷰파일 볼수 있음
+	implementation 'org.springframework.boot:spring-boot-devtools'
+
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+	//둘이 같은 것이 위, 아래중 둘중 하나 하면 됨
+	//implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.6.3")
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
