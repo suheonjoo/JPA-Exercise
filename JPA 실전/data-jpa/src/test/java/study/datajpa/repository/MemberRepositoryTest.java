@@ -268,7 +268,7 @@ class MemberRepositoryTest {
         Member member1 = new Member("member1", 10);
         memberRepository.save(member1);
         em.flush();
-        em.clear();
+        em.clear();/////
 
         //when
         memberRepository.findLockByUsername("member1");
@@ -276,7 +276,7 @@ class MemberRepositoryTest {
 
 }
 
-
+g
 
 
 
