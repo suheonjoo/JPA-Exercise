@@ -33,9 +33,7 @@ public class MemberController {
 
     @GetMapping("/members")
     public Page<MemberDto> list(@PageableDefault(size=5) Pageable pageable) {
-        Page<Member> page = memberRepository.findAll(pageable);
-        Page<MemberDto> map = page.map(member -> new MemberDto(member.getId(), member.getUsername(), null));
-        return map;
+        return memberRepository.findAll(pageable).map(MemberDto::new);
     }
 
     @PostConstruct
