@@ -101,6 +101,7 @@ class MemberRepositoryTest {
         assertThat(result.getContent()).extracting("username").containsExactly("member1","member2","member3");
     }
 
+    @Test
     public void querydslPredicateExecutorTest(){
 
         Team teamA = new Team("teamA");

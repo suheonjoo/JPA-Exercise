@@ -29,7 +29,6 @@ import java.util.function.Function;
  * @author Younghan Kim
  * @see org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
  */
-
 @Repository
 public abstract class Querydsl4RepositorySupport {
 
@@ -45,14 +44,14 @@ public abstract class Querydsl4RepositorySupport {
 
     @Autowired
     public void setEntityManager(EntityManager entityManager) {
+
+        //이부부은 sort를 해결하는 코드임
         Assert.notNull(entityManager, "EntityManager must not be null!");
-        JpaEntityInformation entityInformation =
-                JpaEntityInformationSupport.getEntityInformation(domainClass, entityManager);
+        JpaEntityInformation entityInformation = JpaEntityInformationSupport.getEntityInformation(domainClass, entityManager);
         SimpleEntityPathResolver resolver = SimpleEntityPathResolver.INSTANCE;
         EntityPath path = resolver.createPath(entityInformation.getJavaType());
         this.entityManager = entityManager;
-        this.querydsl = new Querydsl(entityManager, new
-                PathBuilder<>(path.getType(), path.getMetadata()));
+        this.querydsl = new Querydsl(entityManager, new PathBuilder<>(path.getType(), path.getMetadata()));
         this.queryFactory = new JPAQueryFactory(entityManager);
     }
     @PostConstruct
@@ -77,16 +76,15 @@ public abstract class Querydsl4RepositorySupport {
     protected <T> JPAQuery<T> selectFrom(EntityPath<T> from) {
         return getQueryFactory().selectFrom(from);
     }
-    protected <T> Page<T> applyPagination(Pageable pageable,
-                                          Function<JPAQueryFactory, JPAQuery> contentQuery) {
+    protected <T> Page<T> applyPagination(Pageable pageable, Function<JPAQueryFactory, JPAQuery> contentQuery) {
         JPAQuery jpaQuery = contentQuery.apply(getQueryFactory());
         List<T> content = getQuerydsl().applyPagination(pageable,
                 jpaQuery).fetch();
         return PageableExecutionUtils.getPage(content, pageable,
                 jpaQuery::fetchCount);
     }
-    protected <T> Page<T> applyPagination(Pageable pageable,
-                                          Function<JPAQueryFactory, JPAQuery> contentQuery, Function<JPAQueryFactory,
+    protected <T> Page<T> applyPagination(
+            Pageable pageable, Function<JPAQueryFactory, JPAQuery> contentQuery, Function<JPAQueryFactory,
             JPAQuery> countQuery) {
         JPAQuery jpaContentQuery = contentQuery.apply(getQueryFactory());
         List<T> content = getQuerydsl().applyPagination(pageable,
