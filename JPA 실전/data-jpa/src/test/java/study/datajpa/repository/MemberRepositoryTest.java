@@ -193,7 +193,6 @@ class MemberRepositoryTest {
         assertThat(content.size()).isEqualTo(3); //조회된 데이터
         assertThat(page.getTotalElements()).isEqualTo(5); //조회된 데이터 수
         assertThat(page.getNumber()).isEqualTo(0); //이렇게 페이지 번호도 가져옴
-
         assertThat(page.getTotalPages()).isEqualTo(2); //전체 페이지 번호
         assertThat(page.isFirst()).isTrue(); //첫번째 페이지인가?
         assertThat(page.hasNext()).isTrue(); //다음 페이지가 있는가?
