@@ -1,6 +1,7 @@
 package study.querydsl.entity;
 
 import lombok.*;
+import org.springframework.context.annotation.Configuration;
 
 import javax.persistence.*;
 
