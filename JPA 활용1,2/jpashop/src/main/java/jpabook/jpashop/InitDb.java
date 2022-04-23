@@ -3,6 +3,7 @@ package jpabook.jpashop;
 import jpabook.jpashop.domain.*;
 import jpabook.jpashop.domain.item.Book;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import javax.persistence.EntityManager;
  *  SPRING1 BOOK
  *  SPRING2 BOOK
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class InitDb {
@@ -65,11 +67,14 @@ public class InitDb {
             em.persist(book2);
 
             Delivery delivery = createDelivery(member);
+            //log.info("delivery = {}",delivery);
 
             OrderItem orderItem1 = OrderItem.createOrderItem(book1, 20000, 3);
             OrderItem orderItem2 = OrderItem.createOrderItem(book2, 40000, 4);
             Order order = Order.createOrder(member, delivery, orderItem1, orderItem2);
             em.persist(order);
+
+            //log.info("delivery = {}",delivery);
         }
 
         private Member createMember(String name, String city, String street,String zipcode) {
