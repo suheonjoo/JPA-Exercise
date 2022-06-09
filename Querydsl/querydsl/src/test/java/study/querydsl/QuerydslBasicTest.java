@@ -14,6 +14,7 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -47,6 +48,8 @@ public class QuerydslBasicTest {
     EntityManager em;
 
     JPAQueryFactory queryFactory;
+
+
 
     @BeforeEach
     public void before(){
@@ -347,7 +350,23 @@ public class QuerydslBasicTest {
                 .fetchOne();
 
         boolean loaded = emf.getPersistenceUnitUtil().isLoaded(findMember.getTeam());
-        assertThat(loaded).as("페치 조인 미적용").isTrue();
+        assertThat(loaded).as("페치 조인 적용").isTrue();
+    }
+
+    @DisplayName("내가 만든거임")
+    @Test
+    public void fetchJoinUse1(){
+        em.flush();
+        em.clear();
+
+        List<Member> member1 = queryFactory
+                .selectFrom(member)
+                .join(member.team, team).fetchJoin()
+                .where(member.username.eq("member1"))
+                .fetch();
+
+        boolean loaded = emf.getPersistenceUnitUtil().isLoaded(member1);
+        assertThat(loaded).as("페치 조인 적용").isTrue();
     }
 
     /**
@@ -708,6 +727,7 @@ public class QuerydslBasicTest {
 
 
 }
+
 
 
 
