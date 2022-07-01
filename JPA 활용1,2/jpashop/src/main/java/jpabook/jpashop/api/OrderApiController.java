@@ -37,7 +37,8 @@ public class OrderApiController {
     public List<Order> orderV1(){
         List<Order> all = orderRepository.findAllByString(new OrderSearch());
         for (Order order : all) {
-            order.getMember().getName();
+            //아래 3줄 강제 초기화 작업임
+            order.getMember().getName(); // member 를 가져오는 초기화 작업임
             order.getDelivery().getAddress();
             List<OrderItem> orderItems = order.getOrderItems();
             orderItems.stream().forEach(o-> o.getItem().getName());

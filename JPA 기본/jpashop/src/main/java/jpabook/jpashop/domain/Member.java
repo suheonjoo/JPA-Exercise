@@ -3,7 +3,9 @@ package jpabook.jpashop.domain;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Member extends BaseEntity{
@@ -38,6 +40,8 @@ public class Member extends BaseEntity{
     public Address getAddress() {
         return address;
     }
+
+
 
     public void setAddress(Address address) {
         this.address = address;

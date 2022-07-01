@@ -234,7 +234,8 @@ class MemberRepositoryTest {
         memberRepository.save(new Member("member1", 10, teamA));
         memberRepository.save(new Member("member2", 20, teamB));
 
-        em.flush();
+        // 이거 진짜 주의해해야 할거는 벌크 연산같이 영속성 컨텍스트거치지 않고 다이렉트로 디비에 들어갈때임-> 그소리는 영속성 컨텍스트 내용과 디비 내용과 다를수 있음
+        em.flush();// 이거 2둘 없어도 테스트 통과함
         em.clear();
 
         //when
