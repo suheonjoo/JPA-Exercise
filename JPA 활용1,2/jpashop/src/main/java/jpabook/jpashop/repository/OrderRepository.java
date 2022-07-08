@@ -108,7 +108,6 @@ public class OrderRepository {
 
         return query
                 .select(order)
-
                 .from(order)
                 .join(order.member, member)
                 .where(statusEq(orderSearch.getOrderStatus()),

@@ -14,9 +14,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
-public interface MemberRepository extends JpaRepository<Member,Long> ,MemberRepositoryCustom{
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberRepositoryCustom {
 
-    List<Member> findByUsernameAndAgeGreaterThan(String username,int age);
+    List<Member> findByUsernameAndAgeGreaterThan(String username, int age);
 
     List<Member> findTop3HelloBy();
 
@@ -36,7 +36,9 @@ public interface MemberRepository extends JpaRepository<Member,Long> ,MemberRepo
     List<Member> findByNames(@Param("names") Collection<String> names);
 
     List<Member> findListByUsername(String username); //컬렉션
+
     Member findMemberByUsername(String username); //단건
+
     Optional<Member> findOptionByUsername(String username); //단건 Optional
 
 
@@ -60,10 +62,10 @@ public interface MemberRepository extends JpaRepository<Member,Long> ,MemberRepo
     List<Member> findMemberEntityGraph();
 
     @EntityGraph(attributePaths = {"team"})
-    //@EntityGraph("Member.all")
+        //@EntityGraph("Member.all")
     List<Member> findEntityGraphByUsername(@Param("username") String username);
 
-    @QueryHints( value = @QueryHint(name = "org.hibernate.readOnly",value = "true"))
+    @QueryHints(value = @QueryHint(name = "org.hibernate.readOnly", value = "true"))
     Member findReadOnlyByUsername(String username);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
@@ -83,18 +85,6 @@ public interface MemberRepository extends JpaRepository<Member,Long> ,MemberRepo
     Page<MemberProjection> findByNativeProjection(Pageable pageable);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

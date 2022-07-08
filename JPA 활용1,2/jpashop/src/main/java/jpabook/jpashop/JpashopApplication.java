@@ -21,7 +21,7 @@ public class JpashopApplication {
 	@Bean
 	Hibernate5Module hibernate5Module() {
 		Hibernate5Module hibernate5Module = new Hibernate5Module();
-		//강제 지연 로딩 설정
+		//강제 지연 로딩 설정 .// 이설정을 강제 지연로딩 되어 있는 값을 가져오게 됨
 		//hibernate5Module.configure(Hibernate5Module.Feature.FORCE_LAZY_LOADING,true);
 		return hibernate5Module;
 	}
