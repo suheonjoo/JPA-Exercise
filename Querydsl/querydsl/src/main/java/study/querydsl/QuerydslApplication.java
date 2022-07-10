@@ -15,6 +15,8 @@ public class QuerydslApplication {
 	}
 
 
+
+
 //	@Bean  //일단 요번 강의에서 강의자가 전체 빈 등록으로 안한다고 함
 //	JPAQueryFactory jpaQueryFactory(EntityManager em) {
 //		return new JPAQueryFactory(em);
