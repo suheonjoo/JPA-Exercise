@@ -53,6 +53,9 @@ public class QuerydslBasicTest {
 
     @BeforeEach
     public void before(){
+
+        System.out.println("===============================");
+
         queryFactory = new JPAQueryFactory(em);
         Team teamA = new Team("teamA");
         Team teamB = new Team("teamB");
@@ -68,18 +71,31 @@ public class QuerydslBasicTest {
         em.persist(member3);
         em.persist(member4);
 
+        // flush 하고 , clear 하지 않으면 아직 디비에 안들어가고 영속성 컨텍스트에만 있는 상태임
+        em.flush();
+        em.clear();
+
         System.out.println("===============================");
     }
 
     @Test
     public void startJPQL(){
+
+
         //member1을 찾아라.
         String qlString =
                 "select m from Member m " +
                 "where m.username = :username";
+
+        System.out.println("===============================");
+
+
         Member findMember = em.createQuery(qlString, Member.class)
                 .setParameter("username", "member1")
                 .getSingleResult();
+
+        System.out.println("===============================");
+
         assertThat(findMember.getUsername()).isEqualTo("member1");
     }
 
@@ -95,6 +111,21 @@ public class QuerydslBasicTest {
         assertThat(findMember.getUsername()).isEqualTo("member1");
 
     }
+
+    @Test
+    public void startQuerydsl2() {
+            //member1을 찾아라.
+        QMember m = new QMember("m1");// 여기서 m1은 as 와 같은 별칭임
+
+        Member findMember = queryFactory
+                .select(m)
+                .from(m)
+                .where(m.username.eq("member1"))
+                .fetchOne();
+
+        assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
 
     @Test
     public void search(){
