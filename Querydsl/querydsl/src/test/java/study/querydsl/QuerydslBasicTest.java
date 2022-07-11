@@ -633,6 +633,11 @@ public class QuerydslBasicTest {
 
     }
 
+
+
+    /**
+     * 강의 pdf 에서 동적쿼리_BooleanBuilder() 이름을 가진 테스트임
+     */
     @Test
     public void dynamicQuery_BooleanBuilder(){
         String usernameParam = "member1";
@@ -644,6 +649,7 @@ public class QuerydslBasicTest {
 
     private List<Member> searchMember1(String usernameCond, Integer ageCond) {
         BooleanBuilder builder = new BooleanBuilder();
+
         if(usernameCond != null){
             builder.and(member.username.eq(usernameCond));
         }
@@ -659,8 +665,13 @@ public class QuerydslBasicTest {
 
     }
 
+    /**
+     * 강의 pdf 에서 동적쿼리_WhereParam()이름을 가진 테스트임
+     */
     @Test
-    public void dynamicQuery_WhereParam() throws Exception { String usernameParam = "member1";
+    public void dynamicQuery_WhereParam() throws Exception {
+
+        String usernameParam = "member1";
         Integer ageParam = 10;
         List<Member> result = searchMember2(usernameParam, ageParam);
         Assertions.assertThat(result.size()).isEqualTo(1);

@@ -17,6 +17,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+
+/**
+ * 순수 JPA 리포지토리 테스트
+ */
 @SpringBootTest
 @Transactional
 class MemberJpaRepositoryTest {
@@ -59,6 +63,9 @@ class MemberJpaRepositoryTest {
                 memberJpaRepository.findByUsername_Querydsl("member1");
         assertThat(result2).containsExactly(member);
     }
+
+
+
 
     @Test
     public void searchTest() {
