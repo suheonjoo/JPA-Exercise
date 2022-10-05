@@ -13,16 +13,12 @@ import jpabook.jpashop.repository.order.query.OrderQueryRepository;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.w3c.dom.ls.LSInput;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.*;
 
@@ -87,6 +83,7 @@ public class OrderApiController {
         return result;
     }
 
+
     /**
      * V3.1 엔티티를 조회해서 DTO로 변환 페이징 고려
      * -ToOne 관계만 우선 모두 페치 조인으로 최적화
@@ -98,7 +95,17 @@ public class OrderApiController {
             @RequestParam(value = "limit",defaultValue = "100") int limit
             )
     {
-        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset,limit);
+
+//        Order one = orderRepository.findOne(4l);
+//        System.out.println("one.getOrderItems().toString() = " + one.getOrderItems().get(0));
+//        List<OrderItem> orderItems = one.getOrderItems();
+//        OrderItem orderItem = orderItems.get(0);
+////        orderItem.getItem();
+
+        System.out.println(" ============================================ ");
+
+        List<Order> orders = orderRepository.findAllWithMemberDelivery(offset,limit);//여기에서 fetch join 씀
+
         List<OrderDto> result = orders.stream()
                 .map(o -> new OrderDto(o))
                 .collect(toList());
@@ -145,7 +152,7 @@ public class OrderApiController {
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
             address = order.getDelivery().getAddress();
-            orderItems = order.getOrderItems().stream()
+            orderItems = order.getOrderItems().stream()//스트림 사용
                     .map(orderItem -> new OrderItemDto(orderItem))
                     .collect(toList());
         }
