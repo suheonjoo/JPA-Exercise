@@ -208,7 +208,9 @@ class MemberRepositoryTest {
         memberRepository.save(new Member("member5", 40));
 
         //when
+        System.out.println("==========================");
         int resultCount = memberRepository.bulkAgePlus(20);
+        System.out.println("==========================");
         //em.flush(); //영속성 컨텍스트에 있는 내용 디비에 넣음
         //em.clear(); //영속성 컨텍스트 초기화
 

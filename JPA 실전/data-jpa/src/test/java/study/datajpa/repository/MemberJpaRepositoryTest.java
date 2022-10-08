@@ -131,7 +131,7 @@ class MemberJpaRepositoryTest {
         //when
         int resultCount = memberJpaRepository.bulkAgePlus(20);
 
-        //then
+        //then -> 나이가 20보다 크거나 같으면 +1
         assertThat(resultCount).isEqualTo(3);
     }
 }
